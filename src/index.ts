@@ -2,7 +2,6 @@ import EventEmitter from 'event-emitter-es6';
 import { Selection } from 'd3-selection';
 
 import {
-  event,
   select,
   scaleLinear,
   axisBottom,
@@ -180,7 +179,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
 
     // Handle dragging
     const dragPoint = drag<SVGGElement, DataPointInternal>()
-      .on('drag', function (data) {
+      .on('drag', function (event, data) {
         let { x } = event;
 
         // Check point movement, preventing it from wondering outside the main curve
@@ -238,7 +237,7 @@ export default class HillChart extends EventEmitter implements IHillChartClass {
           self.emit('move', invertedX, invertedY);
         }
       })
-      .on('end', (data) => {
+      .on('end', (event, data) => {
         if (this.preview) {
           return;
         }
